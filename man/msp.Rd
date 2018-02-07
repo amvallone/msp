@@ -11,7 +11,7 @@ msp(x, y, r = 0.5, type = "ask")
 
 \item{y}{the vector containing x and order character}
 
-\item{r}{the desire level of adjustmen of the search by default 90%}
+\item{r}{the desire level of adjustmen of the search by default 0.5}
 
 \item{type}{an charactaer indicating the remplacement procudure. Se details for mor information}
 }
@@ -22,14 +22,17 @@ a same object than \code{x} without misspelling
 Look for similatiries between a caharacter and a vector character to detect misspeling problems and change it.
 }
 \details{
+import stringi
+
 Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{long} use the longer element as correct to replace. The default value is \code{ask}
 }
 \examples{
-set.seed(1)
-z <- stringi::stri_rand_strings(20, 5)
-a <- z[1]
-a1 <- c("GNZuC","GNZuC ", "GNZu.C"," GNZuC", "GNZ uC", "gNZuC")
-z <- c(z,sample(z),sample(z,10),a1)
-msp(a,z)
-
+\dontrun{
+	set.seed(1)
+	z <- stringi::stri_rand_strings(20, 5)
+	a <- z[1]
+	a1 <- c("GNZuC","GNZuC ", "GNZu.C"," GNZuC", "GNZ uC", "gNZuC")
+	z <- c(z,sample(z),sample(z,10),a1)
+	msp(a,z)
+}
 }
