@@ -1,9 +1,10 @@
 Package: msp
-Title: What the Package Does (one line, title case)
+Title: Fix misspelling and different in similar character data
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: c(person("Andres","Vallone",email="avallone@ucn.cl", role=c("aut","cre")),person("Guillermo","Honores",role="ctb"))
+Description: A set of function to fix misspelling and different in similar character data
 Depends: R (>= 3.4.2)
-License: What license is it under?
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
