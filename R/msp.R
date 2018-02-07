@@ -3,7 +3,9 @@
 #' @param x a character to search
 #' @param y the vector containing x and order character
 #' @param r the desire level of adjustmen of the search by default 90%
-#' @param type an charactaer indicating the procudure of replacement, |code{ask} ask generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{long} use the longer element as correct to replace. By default the function type is \code{ask}
+#' @param type an charactaer indicating the remplacement procudure. Se details for mor information.
+
+#' @details Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{long} use the longer element as correct to replace. The default value is \code{ask}
 
 #' @example
  set.seed(1)
@@ -43,13 +45,13 @@ msp <- function(x,y,r=0.5,type = "ask",...){
 		}
 
 		type.first<-function(search){
-			goodone <<- 1
+			goodone <<- 1L
 			change <<- seq_along(search)
 		}
 
 		type.long<-function(search){
 			long <- sapply(search,nchar)
-			goodone <<- which(long==max(long))[1]
+			goodone <<- which(long==max(long))[1L]
 			change <<- seq_along(search)	
 		}	
 	
