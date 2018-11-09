@@ -1,4 +1,5 @@
-#' import stringi
+# @import stringi
+#' @import stringdist
 #' @name msp
 #' @rdname msp
 
@@ -8,12 +9,13 @@
 
 #' @param x a character to search
 #' @param y the vector containing x and order character
-#' @param r the desire level of adjustmen of the search by default 0.5
+#' @param r level of similarity between element, by default is 0.8
 #' @param type an charactaer indicating the remplacement procudure. Se details for mor information
+#' @param ... additional arguments are passed on to \link{stringsim} function.
 #' @description Look for similatiries between a caharacter and a vector character to detect misspeling problems and change it.
 #'
 #' @return a same object than \code{x} without misspelling
-#' @details Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{long} use the longer element as correct to replace. The default value is \code{ask}
+#' @details Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{min} use the smallest element as correct to replace. The default value is \code{ask}
 
 #' @examples
 #' \dontrun{
@@ -26,10 +28,11 @@
 #' }
 #' @export
  
-msp <- function(x,y,r=0.5,type = "ask"){
+msp <- function(x,y,r=0.8,type = "ask",...){
 		change <- NULL
 		goodone <- NULL
 		add <- NULL
+		skips <- NULL
 		#checks
 		if(is.character(x)!=TRUE) stop(" You must provide a character")
 		
@@ -44,30 +47,28 @@ msp <- function(x,y,r=0.5,type = "ask"){
 			}
 			skip <- readline("Do you want to skip any opcion? Yes (Y) No (N): ")
 			if (skip =="Y"){
-				skips<-readline("Please indicate the registers to skip: ")
-				skips<-as.integer(unlist(strsplit(skips," ")))			
-				n.search <- seq_along(search)
-				change <<- n.search[-skips]
-			} else {
-				change <<- seq_along(search)
-			}
+				skips <- readline("Please indicate the registers to skip: ")
+				skips <<- as.integer(unlist(strsplit(skips," ")))			
+			} 
 		}
 
 		type.first<-function(search){
 			goodone <<- 1L
-			change <<- seq_along(search)
 		}
 
-		type.long<-function(search){
+		type.min<-function(search){
 			long <- sapply(search,nchar)
-			goodone <<- which(long==max(long))[1L]
-			change <<- seq_along(search)	
+			goodone <<- which(long==min(long))[1L]	
 		}	
 	
 		#global function
 		clean.y <- y
 		unique.y <- unique(y)
-		search <- agrep(x,unique.y, max.distance = r,value=TRUE)
+		#search <- agrep(x,unique.y, max.distance = r,value=TRUE)
+		sim <- stringdist::stringsim(x,unique.y,...)
+		target <- which(sim >= r)
+		search <- unique.y[target]
+		change <- seq_along(search)
 		if(length(search)==0) stop("No mactching, nothing to replace")
 		if (length(search)==1) {
 			 type.first(search)
@@ -76,14 +77,15 @@ msp <- function(x,y,r=0.5,type = "ask"){
 		} else if (type=="first"){ 
 			 type.first(search) 
 		} else  { 
-			 type.long(search) 
+			 type.min(search) 
 		}
-		if (exists("add")==TRUE){
+		if(!is.null(add)){
 			replace<-add
 		} else {
 			replace <- search[as.numeric(goodone)]
 		}
 		for ( j in change){
+			if(j %in% skips) next
 			clean.y[which(y==search[change[j]])] <- replace
 		}
 	return(clean.y)

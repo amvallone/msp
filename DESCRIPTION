@@ -1,10 +1,14 @@
 Package: msp
-Title: Fix misspelling and different in similar character data
+Title: Fix misspelling and differences in similar character data
 Version: 0.0.0.9000
 Authors@R: c(person("Andres","Vallone",email="avallone@ucn.cl", role=c("aut","cre")),person("Guillermo","Honores",role="ctb"))
-Description: A set of function to fix misspelling and different in similar character data
-Depends: R (>= 3.4.2)
+Description: A set of function to fix misspelling and differences in similar character data.
+Depends: 
+	R(>= 3.4),
+	stringdist
+Import: stringdist
+Suggest: stringi
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

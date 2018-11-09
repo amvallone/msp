@@ -4,16 +4,18 @@
 \alias{msp}
 \title{Fix misspelling and different in similar character data.}
 \usage{
-msp(x, y, r = 0.5, type = "ask")
+msp(x, y, r = 0.8, type = "ask", ...)
 }
 \arguments{
 \item{x}{a character to search}
 
 \item{y}{the vector containing x and order character}
 
-\item{r}{the desire level of adjustmen of the search by default 0.5}
+\item{r}{level of similarity between element, by default is 0.8}
 
 \item{type}{an charactaer indicating the remplacement procudure. Se details for mor information}
+
+\item{...}{additional arguments are passed on to \link{stringsim} function.}
 }
 \value{
 a same object than \code{x} without misspelling
@@ -22,8 +24,6 @@ a same object than \code{x} without misspelling
 Look for similatiries between a caharacter and a vector character to detect misspeling problems and change it.
 }
 \details{
-import stringi
-
 Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{long} use the longer element as correct to replace. The default value is \code{ask}
 }
 \examples{
