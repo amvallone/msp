@@ -10,9 +10,9 @@
 #' @param x a character to search
 #' @param y the vector containing x and order character
 #' @param r level of similarity between element, by default is 0.8
-#' @param type an charactaer indicating the remplacement procudure. Se details for mor information
+#' @param type an character indicating the replacement procedure. Se details for more information
 #' @param ... additional arguments are passed on to \link{stringsim} function.
-#' @description Look for similatiries between a caharacter and a vector character to detect misspeling problems and change it.
+#' @description Look for similarities between a single character entry and a character vector to detect similarities dues to misspeling problems and fix it.
 #'
 #' @return a same object than \code{x} without misspelling
 #' @details Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{min} use the smallest element as correct to replace. The default value is \code{ask}
@@ -34,8 +34,9 @@ msp <- function(x,y,r=0.8,type = "ask",...){
 		add <- NULL
 		skips <- NULL
 		#checks
+		if(length(a)>1) stop("Please provide a single element to search")
 		if(is.character(x)!=TRUE) stop(" You must provide a character")
-		
+		if(!is.character(z)) stop("The target vector must be a character vector")
 		#type definitions	
 		type.ask<-function(search){
 			display<-c(search, "None")

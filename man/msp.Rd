@@ -24,7 +24,7 @@ a same object than \code{x} without misspelling
 Look for similatiries between a caharacter and a vector character to detect misspeling problems and change it.
 }
 \details{
-Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{long} use the longer element as correct to replace. The default value is \code{ask}
+Type define the way of the rigth option to replace is choose,  |code{ask} generate a interactive replacement process, \code{first} use the fisrt element of the list as correct element to repalce and \code{min} use the smallest element as correct to replace. The default value is \code{ask}
 }
 \examples{
 \dontrun{
